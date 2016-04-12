@@ -1,0 +1,20 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build --tag=cityofsurrey/${CIRCLE_PROJECT_REPONAME} .
+
+test:
+  post:
+    - docker run --rm cityofsurrey/${CIRCLE_PROJECT_REPONAME}
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login --email=${DOCKER_EMAIL} --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
+      - docker tag -f cityofsurrey/${CIRCLE_PROJECT_REPONAME} cityofsurrey/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_BUILD_NUM}
+      - docker push cityofsurrey/${CIRCLE_PROJECT_REPONAME}
