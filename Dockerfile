@@ -1,5 +1,9 @@
 FROM ubuntu
 
+ENV LANDSCAPE_API_URI=https://landscape.canonical.com/api/
+ENV LANDSCAPE_API_KEY=""
+ENV LANDSCAPE_API_SECRET=""
+
 RUN mkdir /app
 WORKDIR /app
 
