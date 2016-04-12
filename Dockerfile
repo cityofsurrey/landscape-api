@@ -7,7 +7,8 @@ ENV LANDSCAPE_API_SECRET=""
 RUN mkdir /app
 WORKDIR /app
 
-RUN add-apt-repository ppa:landscape/landscape-api -y && \
+RUN apt-get install software-properties-common -y && \
+    add-apt-repository ppa:landscape/landscape-api -y && \
     apt-get update && \
     apt-get install landscape-api -y
 
